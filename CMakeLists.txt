@@ -31,8 +31,13 @@ add_executable(BrickBreaker main.cpp
         src/Core/Renderer.cpp
         include/Window.h
         src/Core/Window.cpp
-        include/PositionComponent.h
-        src/Components/PositionComponent.cpp
+        include/MovementComponent.h
+        src/Components/MovementComponent.cpp
+        src/Components/SpriteComponent.cpp
+        include/SpriteComponent.h
+        src/Components/CollisionComponent.cpp
+        include/CollisionComponent.h
+        include/Types.h
 )
 
 add_custom_target(CopyResources

@@ -5,6 +5,11 @@
 #include "BrickManager.h"
 #include "Brick.h"
 
+BrickManager::BrickManager(std::shared_ptr<ECS> ecs)
+    : m_Manager(std::move(ecs))
+{
+}
+
 BrickManager::~BrickManager()
 {
     if (m_Bricks.empty()) return;
@@ -12,13 +17,5 @@ BrickManager::~BrickManager()
     for (const auto& brick: m_Bricks)
     {
         delete brick;
-    }
-}
-
-void BrickManager::RenderBricks(Renderer& renderer)
-{
-    for (const auto& brick: m_Bricks)
-    {
-        renderer.RenderEntity(*brick);
     }
 }

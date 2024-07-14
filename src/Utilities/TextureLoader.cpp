@@ -2,9 +2,9 @@
 // Created by Anthony Lesch on 7/7/24.
 //
 
-#include "TextureLoader.h"
-
 #include <SDL_image.h>
+
+#include "TextureLoader.h"
 
 static const int FLAGS = IMG_INIT_JPG | IMG_INIT_PNG;
 

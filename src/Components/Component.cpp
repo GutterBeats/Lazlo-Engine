@@ -4,16 +4,6 @@
 
 #include "Component.h"
 
-Component::Component(Entity* entity)
-    : m_Entity(entity)
-{
-}
-
-Entity* Component::GetEntity()
-{
-    return m_Entity;
-}
-
 void Component::Initialize()
 {
 }
@@ -22,6 +12,18 @@ void Component::Update(float deltaSeconds)
 {
 }
 
-void Component::Draw()
+void Component::Draw(Renderer& renderer)
 {
+}
+
+Entity* Component::GetOwner()
+{
+    if (m_Entity.expired()) return nullptr;
+
+    return m_Entity.lock().get();
+}
+
+void Component::SetOwner(Entity* owner)
+{
+
 }

@@ -10,17 +10,11 @@
 class Brick final : public Entity
 {
 public:
-    Brick(Renderer* renderer, float x, float y, int brickHealth = 25);
-    ~Brick() override;
+    Brick();
 
-    void Draw(SDL_Renderer* renderer) const override;
-
-    [[nodiscard]]
-    bool GetIsAlive() const { return m_BrickHealth > 0; }
+    void Draw(Renderer& renderer) override;
 
 private:
-
-    SDL_Texture* m_LowHealthTexture = nullptr;
 
     int m_MaxBrickHealth;
 

@@ -15,14 +15,19 @@ Renderer::Renderer(SDL_Window* window)
     }
 }
 
+Renderer::~Renderer()
+{
+    SDL_DestroyRenderer(m_Renderer);
+}
+
 SDL_Renderer* Renderer::GetRenderer() const
 {
     return m_Renderer;
 }
 
-void Renderer::RenderEntity(const Entity& entity) const
+void Renderer::RenderEntity(Entity& entity)
 {
-    entity.Draw(m_Renderer);
+    entity.Draw(*this);
 }
 
 void Renderer::StartFrame() const
@@ -36,7 +41,7 @@ void Renderer::EndFrame() const
     SDL_RenderPresent(m_Renderer);
 }
 
-Renderer::~Renderer()
+void Renderer::DrawTexture(SDL_Texture* texture, const SDL_Rect* sourceRect, const SDL_FRect* destRect) const
 {
-    SDL_DestroyRenderer(m_Renderer);
+    SDL_RenderCopyF(m_Renderer, texture, sourceRect, destRect);
 }

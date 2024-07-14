@@ -4,18 +4,18 @@
 
 #pragma once
 
+#include <memory>
 #include <vector>
+
 #include "Renderer.h"
 #include "Window.h"
-
-class Player;
-class BrickManager;
-class Ball;
-class TextWriter;
+#include "BrickManager.h"
 
 class Game final
 {
 public:
+
+    explicit Game(std::shared_ptr<ECS> ecs);
 
     void Initialize();
 
@@ -24,8 +24,6 @@ public:
     void UpdateEntities(float deltaTime);
 
     void RenderFrame();
-
-    void Cleanup();
 
     [[nodiscard]]
     bool GetIsRunning() const { return m_IsRunning; }
@@ -36,20 +34,14 @@ private:
     bool m_IsRunning = false;
 
     /* SDL Window to render to. */
-    Window* m_Window = nullptr;
+    std::unique_ptr<Window> m_Window = nullptr;
 
     /* SDL Renderer to use for rendering. */
-    Renderer* m_Renderer = nullptr;
+    std::unique_ptr<Renderer> m_Renderer = nullptr;
 
     /* ECS Manager */
-    ECS* m_Manager = nullptr;
-
-    /* Player paddle. */
-    Player* m_Player = nullptr;
-
-    /* Pointer to ball. */
-    Ball* m_Ball = nullptr;
+    std::shared_ptr<ECS> m_Manager = nullptr;
 
     /* Collection of bricks. */
-    BrickManager* m_BrickManager = nullptr;
+    std::unique_ptr<BrickManager> m_BrickManager = nullptr;
 };

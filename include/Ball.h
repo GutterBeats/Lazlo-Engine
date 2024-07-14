@@ -10,7 +10,7 @@
 class Ball final : public Entity
 {
 public:
-    Ball(Renderer* renderer, float x, float y, int screenWidth, int screenHeight);
+    Ball();
 
     void Tick(float deltaSeconds) override;
 

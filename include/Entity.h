@@ -4,21 +4,22 @@
 
 #pragma once
 
-#include <SDL.h>
 #include <vector>
+
+#include "ECS.h"
+#include "Types.h"
 #include "Component.h"
 
 class Entity
 {
 public:
-    Entity(float x, float y, float w, float h);
 
-    virtual ~Entity();
+    virtual ~Entity() = default;
 
     /*
      * Draw the entity on the screen.
      * */
-    virtual void Draw(SDL_Renderer* renderer) const;
+    virtual void Draw(Renderer& renderer);
 
     /*
      * Update the entity each frame.
@@ -30,25 +31,35 @@ public:
 
     void Destroy();
 
-    template<typename T>
+    [[nodiscard]]
+    Vector2D GetEntityLocation() const;
+
+    void SetEntityLocation(const Vector2D& location);
+
+    template<typename T> requires std::is_base_of_v<Component, T>
     [[nodiscard]] bool HasComponent() const;
 
-    template<typename T, typename... TArgs>
-    [[nodiscard]] T& AddComponent(TArgs&&...args);
+    template<typename T> requires std::is_base_of_v<Component, T>
+    [[nodiscard]] T* AddComponent()
+    {
+        T* component = new T();
+        std::unique_ptr<Component> uniquePtr { component };
+        m_Components.push_back(std::move(uniquePtr));
 
-    template<typename T>
+        m_ComponentArray[GetComponentTypeID<T>()] = component;
+        m_ComponentBitSet[GetComponentTypeID<T>()] = true;
+
+        component->Initialize();
+
+        return component;
+    }
+
+    template<typename T> requires std::is_base_of_v<Component, T>
     [[nodiscard]] T& GetComponent() const;
 
-protected:
-
-    SDL_FRect Bounds;
-
-    /*
-     * Texture to use to represent player.
-     * */
-    SDL_Texture* Texture = nullptr;
-
 private:
+
+    Vector2D m_EntityLocation;
 
     bool m_IsActive = true;
 

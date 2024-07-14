@@ -4,32 +4,23 @@
 
 #include "Entity.h"
 
-Entity::Entity(float x, float y, float w, float h)
-    : Bounds({ .x = x, .y = y, .w = w, .h = h })
-{
-
-}
-
 void Entity::Tick(float deltaSeconds)
 {
+    if (!m_IsActive) return;
+
     for (auto& comp: m_Components)
     {
         comp->Update(deltaSeconds);
     }
 }
 
-Entity::~Entity()
+void Entity::Draw(Renderer& renderer)
 {
-    SDL_DestroyTexture(Texture);
-}
-
-void Entity::Draw(SDL_Renderer* renderer) const
-{
-    SDL_RenderCopyF(renderer, Texture, nullptr, &Bounds);
+    if (!m_IsActive) return;
 
     for (auto& comp: m_Components)
     {
-        comp->Draw();
+        comp->Draw(renderer);
     }
 }
 
@@ -43,28 +34,24 @@ void Entity::Destroy()
     m_IsActive = false;
 }
 
-template<typename T>
+Vector2D Entity::GetEntityLocation() const
+{
+    return m_EntityLocation;
+}
+
+void Entity::SetEntityLocation(const Vector2D& location)
+{
+    m_EntityLocation.X = location.X;
+    m_EntityLocation.Y = location.Y;
+}
+
+template<typename T> requires std::is_base_of_v<Component, T>
 bool Entity::HasComponent() const
 {
     return m_ComponentBitSet[GetComponentTypeID<T>()];
 }
 
-template<typename T, typename... TArgs>
-T& Entity::AddComponent(TArgs&& ... args)
-{
-    T* component(new T(std::forward<TArgs>(args)...));
-    std::unique_ptr<Component> uniquePtr { component };
-    m_Components.emplace_back(std::move(uniquePtr));
-
-    m_ComponentArray[GetComponentTypeID<T>()] = component;
-    m_ComponentBitSet[GetComponentTypeID<T>()] = true;
-
-    component->Initialize();
-
-    return *component;
-}
-
-template<typename T>
+template<typename T> requires std::is_base_of_v<Component, T>
 T& Entity::GetComponent() const
 {
     auto ptr(m_ComponentArray[GetComponentTypeID<T>()]);

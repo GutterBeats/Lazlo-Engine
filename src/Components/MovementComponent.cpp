@@ -2,14 +2,14 @@
 // Created by Anthony Lesch on 7/12/24.
 //
 
-#include "PositionComponent.h"
+#include "MovementComponent.h"
 
-void PositionComponent::Initialize()
+void MovementComponent::Initialize()
 {
     Component::Initialize();
 }
 
-void PositionComponent::Update(float deltaSeconds)
+void MovementComponent::Update(float deltaSeconds)
 {
     Component::Update(deltaSeconds);
 }

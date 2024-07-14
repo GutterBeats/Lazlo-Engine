@@ -4,25 +4,30 @@
 
 #pragma once
 
-#include "ECS.h"
-#include "Entity.h"
+#include <memory>
+
+class Renderer;
+class Entity;
 
 class Component
 {
 public:
 
-    explicit Component(Entity* entity);
-    virtual ~Component() = default;
+    Component() = default;
 
-    Entity* GetEntity();
+    virtual ~Component() = default;
 
     virtual void Initialize();
 
     virtual void Update(float deltaSeconds);
 
-    virtual void Draw();
+    virtual void Draw(Renderer& renderer);
+
+    Entity* GetOwner();
+
+    void SetOwner(Entity* owner);
 
 private:
 
-    Entity* m_Entity;
+    std::weak_ptr<Entity> m_Entity;
 };

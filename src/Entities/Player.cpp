@@ -14,11 +14,12 @@ static const int MOVE_SPEED = 350;
 
 #define PLAYER_TEXTURE ("resources/Textures/paddleBlue.png")
 
-Player::Player(Renderer* renderer, float x, float y, int screenWidth)
-    : Entity(x, y, PADDLE_WIDTH, PADDLE_HEIGHT), m_ScreenWidth(screenWidth)
+Player::Player()
 {
-    m_DestinationX = x;
-    Texture = TextureLoader::LoadTextureFromFile(renderer, PLAYER_TEXTURE);
+//    m_DestinationX = x;
+//    Texture = TextureLoader::LoadTextureFromFile(renderer, PLAYER_TEXTURE);
+
+    //m_SpriteComponent = AddComponent<SpriteComponent>();
 }
 
 void Player::Tick(float deltaTime)
@@ -27,14 +28,14 @@ void Player::Tick(float deltaTime)
 
     if (Keyboard::IsLeftKeyDown())
     {
-        m_DestinationX -= (MOVE_SPEED * deltaTime);
-        m_DestinationX = std::max(m_DestinationX, 0.f);
+//        m_DestinationX -= (MOVE_SPEED * deltaTime);
+//        m_DestinationX = std::max(m_DestinationX, 0.f);
     }
     else if (Keyboard::IsRightKeyDown())
     {
-        m_DestinationX += (MOVE_SPEED * deltaTime);
-        m_DestinationX = std::min(m_DestinationX, float(m_ScreenWidth) - Bounds.w);
+        //m_DestinationX += (MOVE_SPEED * deltaTime);
+        //m_DestinationX = std::min(m_DestinationX, float(m_ScreenWidth) - Bounds.w);
     }
 
-    Bounds.x = std::lerp(m_DestinationX, Bounds.x, pow(0.9f, deltaTime * 60));
+//    Bounds.x = std::lerp(m_DestinationX, Bounds.x, pow(0.9f, deltaTime * 60));
 }
