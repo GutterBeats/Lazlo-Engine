@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.28)
-project(BrickBreaker)
+project(Lazlo_Engine)
 
 set(CMAKE_CXX_STANDARD 23)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-add_executable(BrickBreaker main.cpp
+add_executable(Lazlo_Engine main.cpp
         include/Game.h
         src/Game.cpp
         include/Player.h
@@ -43,7 +43,7 @@ add_executable(BrickBreaker main.cpp
 add_custom_target(CopyResources
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/resources ${CMAKE_CURRENT_BINARY_DIR}/resources
 )
-add_dependencies(BrickBreaker CopyResources)
+add_dependencies(Lazlo_Engine CopyResources)
 
 # Variables storing SDL Framework locations
 set(SDL2
@@ -59,7 +59,7 @@ set(SDL2_mixer
     /Library/Frameworks/SDL2_mixer.framework)
 
 target_link_libraries(
-    BrickBreaker PRIVATE
+        Lazlo_Engine PRIVATE
         ${SDL2}/Versions/A/SDL2
         ${SDL2_image}/Versions/A/SDL2_image
         ${SDL2_ttf}/Versions/A/SDL2_ttf
@@ -67,7 +67,7 @@ target_link_libraries(
 )
 
 target_include_directories(
-        BrickBreaker PRIVATE
+        Lazlo_Engine PRIVATE
         ${SDL2}/Versions/A/Headers
         ${SDL2_image}/Versions/A/Headers
         ${SDL2_ttf}/Versions/A/Headers
