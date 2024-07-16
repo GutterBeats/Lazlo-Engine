@@ -5,7 +5,6 @@
 #pragma once
 
 #include "Entity.h"
-#include "Renderer.h"
 
 class Brick final : public Entity
 {

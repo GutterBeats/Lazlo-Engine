@@ -5,7 +5,9 @@
 #pragma once
 
 #include "Entity.h"
-#include "Renderer.h"
+
+class MovementComponent;
+class SpriteComponent;
 
 class Ball final : public Entity
 {
@@ -16,11 +18,7 @@ public:
 
 private:
 
-    int m_ScreenWidth = 0;
+    MovementComponent* m_MovementComponent = nullptr;
 
-    int m_ScreenHeight = 0;
-
-    int m_BallSpeedX;
-
-    int m_BallSpeedY;
+    SpriteComponent* m_SpriteComponent = nullptr;
 };

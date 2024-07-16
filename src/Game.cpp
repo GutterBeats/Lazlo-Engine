@@ -3,8 +3,6 @@
 //
 
 #include <SDL.h>
-#include <string>
-#include <utility>
 
 #include "Game.h"
 #include "Player.h"
@@ -25,6 +23,18 @@ void Game::Initialize()
     m_Window = std::make_unique<Window>("Brick Breaker", WIDTH, HEIGHT);
     m_Renderer = std::unique_ptr<Renderer>(m_Window->CreateRenderer());
     m_BrickManager = std::make_unique<BrickManager>(m_Manager);
+
+    m_Manager->AddEntity<Player>()
+            .SetEntityLocation({
+                .X = WIDTH / 2.f,
+                .Y = HEIGHT - 50.f
+            });
+
+    m_Manager->AddEntity<Ball>()
+            .SetEntityLocation({
+               .X = WIDTH / 2.f,
+               .Y = HEIGHT / 2.f
+            });
 
     m_IsRunning = true;
 }

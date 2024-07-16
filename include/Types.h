@@ -9,3 +9,9 @@ struct Vector2D
     int X;
     int Y;
 };
+
+struct VectorF2D
+{
+    float X;
+    float Y;
+};

@@ -29,5 +29,5 @@ public:
 
 private:
 
-    std::weak_ptr<Entity> m_Entity;
+    Entity* m_Entity = nullptr;
 };

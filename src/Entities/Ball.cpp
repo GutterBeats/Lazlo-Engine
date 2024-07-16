@@ -6,6 +6,8 @@
 
 #include "Ball.h"
 #include "TextureLoader.h"
+#include "MovementComponent.h"
+#include "SpriteComponent.h"
 
 static const int BALL_RADIUS = 22;
 
@@ -13,9 +15,12 @@ static const int BALL_RADIUS = 22;
 
 Ball::Ball()
 {
-    //Texture = TextureLoader::LoadTextureFromFile(renderer, BALL_PATH);
-    m_BallSpeedX = 200;
-    m_BallSpeedY = 200;
+    m_MovementComponent = AddComponent<MovementComponent>();
+    m_MovementComponent->SetMovementSpeed(200.f);
+
+    m_SpriteComponent = AddComponent<SpriteComponent>();
+    m_SpriteComponent->SetSpritePath(BALL_PATH);
+    m_SpriteComponent->SetSize(BALL_RADIUS, BALL_RADIUS);
 }
 
 void Ball::Tick(float deltaTime)

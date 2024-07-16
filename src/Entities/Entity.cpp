@@ -34,15 +34,32 @@ void Entity::Destroy()
     m_IsActive = false;
 }
 
-Vector2D Entity::GetEntityLocation() const
+VectorF2D Entity::GetEntityLocation() const
 {
     return m_EntityLocation;
 }
 
-void Entity::SetEntityLocation(const Vector2D& location)
+void Entity::SetEntityLocation(const VectorF2D& location)
 {
     m_EntityLocation.X = location.X;
     m_EntityLocation.Y = location.Y;
+}
+
+bool Entity::GetIsInitialized() const
+{
+    return m_IsInitialized;
+}
+
+void Entity::Initialize()
+{
+    if (m_IsInitialized) return;
+
+    for (auto& comp: m_Components)
+    {
+        comp->Initialize();
+    }
+
+    m_IsInitialized = true;
 }
 
 template<typename T> requires std::is_base_of_v<Component, T>

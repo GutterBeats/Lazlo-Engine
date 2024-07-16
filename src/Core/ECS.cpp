@@ -10,6 +10,11 @@ void ECS::Update(float deltaSeconds)
 {
     for (auto& entity: m_Entities)
     {
+        if (!entity->GetIsInitialized()) [[unlikely]]
+        {
+            entity->Initialize();
+        }
+
         entity->Tick(deltaSeconds);
     }
 }

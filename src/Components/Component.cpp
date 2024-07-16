@@ -18,12 +18,10 @@ void Component::Draw(Renderer& renderer)
 
 Entity* Component::GetOwner()
 {
-    if (m_Entity.expired()) return nullptr;
-
-    return m_Entity.lock().get();
+    return m_Entity;
 }
 
 void Component::SetOwner(Entity* owner)
 {
-
+    m_Entity = owner;
 }

@@ -5,9 +5,9 @@
 #pragma once
 
 #include "Entity.h"
-#include "Renderer.h"
-#include "MovementComponent.h"
-#include "SpriteComponent.h"
+
+class MovementComponent;
+class SpriteComponent;
 
 class Player final : public Entity
 {
