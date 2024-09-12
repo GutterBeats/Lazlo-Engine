@@ -16,7 +16,7 @@ void Component::Draw(Renderer& renderer)
 {
 }
 
-Entity* Component::GetOwner()
+Entity* Component::GetOwner() const
 {
     return m_Entity;
 }

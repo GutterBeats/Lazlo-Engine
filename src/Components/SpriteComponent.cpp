@@ -10,24 +10,24 @@ void SpriteComponent::Initialize()
 {
     Component::Initialize();
 
-    Entity* owner = GetOwner();
+    const Entity* owner = GetOwner();
     if (owner == nullptr) return;
 
-    const VectorF2D ownerLocation = owner->GetEntityLocation();
-    m_Bounds.x = ownerLocation.X;
-    m_Bounds.y = ownerLocation.Y;
+    const auto [X, Y] = owner->GetEntityLocation();
+    m_Bounds.x = X;
+    m_Bounds.y = Y;
 }
 
-void SpriteComponent::Update(float deltaSeconds)
+void SpriteComponent::Update(const float deltaSeconds)
 {
     Component::Update(deltaSeconds);
 
-    Entity* owner = GetOwner();
+    const Entity* owner = GetOwner();
     if (owner == nullptr) return;
 
-    const VectorF2D ownerLocation = owner->GetEntityLocation();
-    m_Bounds.x = ownerLocation.X;
-    m_Bounds.y = ownerLocation.Y;
+    const auto [X, Y] = owner->GetEntityLocation();
+    m_Bounds.x = X;
+    m_Bounds.y = Y;
 }
 
 void SpriteComponent::Draw(Renderer& renderer)
@@ -52,7 +52,7 @@ void SpriteComponent::SetSpritePath(const char* path)
     m_SpritePath = path;
 }
 
-void SpriteComponent::SetSize(float width, float height)
+void SpriteComponent::SetSize(const float width, const float height)
 {
     m_Bounds.w = width;
     m_Bounds.h = height;

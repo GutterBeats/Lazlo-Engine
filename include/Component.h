@@ -23,7 +23,7 @@ public:
 
     virtual void Draw(Renderer& renderer);
 
-    Entity* GetOwner();
+    Entity* GetOwner() const;
 
     void SetOwner(Entity* owner);
 

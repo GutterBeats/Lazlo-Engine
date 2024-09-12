@@ -11,16 +11,16 @@ void MovementComponent::Initialize()
 {
     Component::Initialize();
 
-    if (Entity* owner = GetOwner())
+    if (const Entity* owner = GetOwner())
     {
-        const VectorF2D location = owner->GetEntityLocation();
+        const auto [X, Y] = owner->GetEntityLocation();
 
-        m_DestinationX = location.X;
-        m_DestinationY = location.Y;
+        m_DestinationX = X;
+        m_DestinationY = Y;
     }
 }
 
-void MovementComponent::Update(float deltaSeconds)
+void MovementComponent::Update(const float deltaSeconds)
 {
     Component::Update(deltaSeconds);
 
@@ -28,7 +28,7 @@ void MovementComponent::Update(float deltaSeconds)
     {
         VectorF2D location = owner->GetEntityLocation();
 
-        float interpolation = pow(m_InterpolationSpeed, deltaSeconds * 60);
+        const float interpolation = pow(m_InterpolationSpeed, deltaSeconds * 60);
 
         location.X = std::lerp(m_DestinationX, location.X, interpolation);
         location.Y = std::lerp(m_DestinationY, location.Y, interpolation);
@@ -37,22 +37,22 @@ void MovementComponent::Update(float deltaSeconds)
     }
 }
 
-void MovementComponent::SetMovementSpeed(float movementSpeed)
+void MovementComponent::SetMovementSpeed(const float movementSpeed)
 {
     m_MovementSpeed = movementSpeed;
 }
 
-void MovementComponent::SetInterpolationSpeed(float interpolationSpeed)
+void MovementComponent::SetInterpolationSpeed(const float interpolationSpeed)
 {
     m_InterpolationSpeed = interpolationSpeed;
 }
 
-void MovementComponent::AddMovementX(float x)
+void MovementComponent::AddMovementX(const float x)
 {
-    m_DestinationX += (m_MovementSpeed * x);
+    m_DestinationX += m_MovementSpeed * x;
 }
 
-void MovementComponent::AddMovementY(float y)
+void MovementComponent::AddMovementY(const float y)
 {
-    m_DestinationY += (m_MovementSpeed * y);
+    m_DestinationY += m_MovementSpeed * y;
 }

@@ -41,9 +41,9 @@ class ECS final
 {
 public:
 
-    void Update(float deltaSeconds);
+    void Update(float deltaSeconds) const;
 
-    void Draw(Renderer& renderer);
+    void Draw(Renderer& renderer) const;
 
     void Refresh();
 

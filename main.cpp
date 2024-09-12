@@ -17,16 +17,16 @@ int main()
     TextureLoader::Initialize();
     Keyboard::InitializeKeymap();
 
-    std::shared_ptr<ECS> ecs = std::make_shared<ECS>();
-    std::unique_ptr<Game> game = std::make_unique<Game>(ecs);
+    auto ecs = std::make_shared<ECS>();
+    const auto game = std::make_unique<Game>(ecs);
     game->Initialize();
 
     uint64_t tick = SDL_GetTicks64();
 
     while (game->GetIsRunning())
     {
-        uint64_t current = SDL_GetTicks64();
-        float deltaTime = float(current - tick) / 1000.f;
+        const uint64_t current = SDL_GetTicks64();
+        const float deltaTime = static_cast<float>(current - tick) / 1000.f;
 
         game->HandleEvents();
         game->UpdateEntities(deltaTime);
