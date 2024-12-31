@@ -6,4 +6,8 @@
 
 namespace Lazlo {
 
+    class Event
+    {
+
+    };
 }

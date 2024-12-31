@@ -6,7 +6,6 @@
 
 #include "Application.h"
 #include "EventSystem.h"
-#include "Window.h"
 
 namespace Lazlo
 {
@@ -24,18 +23,19 @@ namespace Lazlo
             return false;
         }
 
-        m_Window = new Window(m_Config.Title, m_Config.Dimensions);
+        Window* mainWindow = new Window(m_Config.Title, m_Config.Dimensions);
+        if (mainWindow->GetIsInitialized())
+        {
+            m_Windows.push_back(mainWindow);
+        }
 
-        return m_Window->GetIsInitialized();
+        return mainWindow->GetIsInitialized();
     }
 
     void Application::Run()
     {
         m_IsRunning = true;
-
-        SDL_Event event;
         auto lastFrame = static_cast<float>(SDL_GetTicks());
-
         const float ticksPerFrame = 1000.f / m_Config.FramesPerSecond;
 
         while (m_IsRunning)
@@ -43,8 +43,12 @@ namespace Lazlo
             const auto currentFrame = static_cast<float>(SDL_GetTicks());
             const float deltaSeconds = (currentFrame - lastFrame) / 1000.f;
 
-            m_EventSystem->HandleInput();
-            m_Window->Draw();
+            EventSystem::HandleInput();
+
+            for (const auto& window : m_Windows)
+            {
+                window->Draw();
+            }
 
             const float frameTicks = static_cast<float>(SDL_GetTicks()) - currentFrame;
             if (frameTicks < ticksPerFrame)
@@ -61,7 +65,11 @@ namespace Lazlo
     {
         m_IsRunning = false;
 
-        delete m_Window;
+        for (const auto& window : m_Windows)
+        {
+            delete window;
+        }
+
         SDL_Quit();
     }
 } // Lazlo

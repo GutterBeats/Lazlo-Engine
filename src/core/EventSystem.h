@@ -10,8 +10,7 @@ class EventSystem
 {
 
 public:
-
-    void HandleInput();
+    static void HandleInput();
 };
 
 } // Lazlo

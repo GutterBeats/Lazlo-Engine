@@ -4,27 +4,30 @@
 
 #pragma once
 
+#include <vector>
+
 #include "ApplicationConfig.h"
+#include "Window.h"
 
 namespace Lazlo {
 
     class Application
-{
-    class Window* m_Window = nullptr;
-    class EventSystem* m_EventSystem = nullptr;
+    {
+    public:
 
-public:
+        explicit Application(const ApplicationConfig& config);
 
-    explicit Application(const ApplicationConfig& config);
+        bool Initialize();
+        void Run();
+        void Shutdown();
 
-    bool Initialize();
-    void Run();
-    void Shutdown();
+    private:
 
-private:
+        std::vector<Window*> m_Windows;
+        class EventSystem* m_EventSystem = nullptr;
 
-    bool m_IsRunning = false;
-    ApplicationConfig m_Config;
-};
+        bool m_IsRunning = false;
+        ApplicationConfig m_Config;
+    };
 
 } // Lazlo
