@@ -5,14 +5,12 @@
 #include <SDL3/SDL.h>
 
 #include "Application.h"
-#include "EventSystem.h"
 
 namespace Lazlo
 {
     Application::Application(const ApplicationConfig& config)
     {
         m_Config = config;
-        m_EventSystem = new EventSystem();
     }
 
     bool Application::Initialize()
@@ -43,10 +41,9 @@ namespace Lazlo
             const auto currentFrame = static_cast<float>(SDL_GetTicks());
             const float deltaSeconds = (currentFrame - lastFrame) / 1000.f;
 
-            EventSystem::HandleInput();
-
             for (const auto& window : m_Windows)
             {
+                window->HandleInput();
                 window->Draw();
             }
 

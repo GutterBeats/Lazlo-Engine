@@ -32,6 +32,36 @@ namespace Lazlo {
         return m_IsInitialized;
     }
 
+    void Window::HandleInput()
+    {
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+                case SDL_EVENT_QUIT:
+
+                    break;
+                case SDL_EVENT_KEY_UP:
+                {
+                    if (event.key.scancode == SDL_SCANCODE_ESCAPE)
+                    {
+                        SDL_Event quit { SDL_EVENT_QUIT };
+                        SDL_PushEvent(&quit);
+                    }
+                }
+                break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    template<typename T>
+    void Window::BindEvent()
+    {
+    }
+
     void Window::Draw()
     {
         m_Renderer->StartFrame();

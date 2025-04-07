@@ -6,6 +6,14 @@
 
 namespace Lazlo {
 
+    enum class EventType
+    {
+        None,
+        WindowResize, WindowMinimize, WindowRestore,
+        ApplicationExit,
+        KeyPress, KeyRelease
+    };
+
     class Event
     {
 

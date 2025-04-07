@@ -24,7 +24,6 @@ namespace Lazlo {
     private:
 
         std::vector<Window*> m_Windows;
-        class EventSystem* m_EventSystem = nullptr;
 
         bool m_IsRunning = false;
         ApplicationConfig m_Config;

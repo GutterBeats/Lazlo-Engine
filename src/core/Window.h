@@ -13,13 +13,6 @@ namespace Lazlo {
 
     class Window
     {
-        /* Main Window used for the application. */
-        SDL_Window* m_Window = nullptr;
-
-        Renderer* m_Renderer = nullptr;
-
-        bool m_IsInitialized = false;
-
     public:
 
         Window(const std::string& title, Vector2D dimensions);
@@ -27,7 +20,19 @@ namespace Lazlo {
 
         [[nodiscard]] bool GetIsInitialized() const;
 
-        void Draw();
-    };
+        template<typename T>
+        void BindEvent();
 
+        void HandleInput();
+        void Draw();
+
+    private:
+
+        /* Underlying window used for the application. */
+        SDL_Window* m_Window = nullptr;
+
+        Renderer* m_Renderer = nullptr;
+
+        bool m_IsInitialized = false;
+    };
 } // Lazlo

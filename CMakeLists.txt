@@ -14,8 +14,6 @@ add_executable(Lazlo_Engine src/main.cpp
         src/core/Application.cpp
         src/core/Application.h
         src/core/Logging.h
-        src/core/EventSystem.cpp
-        src/core/EventSystem.h
         src/core/Event.h)
 
 set(SDLMIXER_VENDORED ON)
